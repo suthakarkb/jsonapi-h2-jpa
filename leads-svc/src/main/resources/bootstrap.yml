@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: rwb-leads-svc
+  cloud:
+    config:
+      enabled: false

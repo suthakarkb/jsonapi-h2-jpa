@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: test-webapp
-  cloud:
-    config:
-      enabled: false

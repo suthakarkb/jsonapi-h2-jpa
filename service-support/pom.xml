@@ -6,15 +6,15 @@
 
   <parent>
     <groupId>com.sc.csl.retail.crm</groupId>
-    <artifactId>lms-parent</artifactId>
+    <artifactId>crm-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.sc.csl.retail.crm.svc-support</groupId> 
+  <groupId>com.sc.csl.retail.crm.common</groupId> 
   <artifactId>service-support</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <description>lms services support</description>
+  <description>common services support</description>
 
   <dependencies>
     <dependency>
