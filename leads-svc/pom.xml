@@ -23,11 +23,16 @@
     <crm.common.version>1.0.0-SNAPSHOT</crm.common.version>
 	  <reflections.version>0.9.9</reflections.version>
 
+    <!--
+      JVM argument passed to surefire-plugin when running unit test
+      defined here to allow override by jacoco plugin
+     -->
+    <argLine>-Xmx1024m -Djava.security.egd=file:/dev/./urandom</argLine>
   </properties>
 
   <dependencies>
 
-    <!--common depedencies -->
+    <!--common dependencies -->
     <dependency>
       <groupId>com.sc.csl.retail.crm.common</groupId>
       <artifactId>service-support</artifactId>
@@ -77,13 +82,6 @@
     <dependency>
       <groupId>com.jayway.restassured</groupId>
       <artifactId>spring-mock-mvc</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- flyway test support -->
-    <dependency>
-      <groupId>org.flywaydb.flyway-test-extensions</groupId>
-      <artifactId>flyway-spring-test</artifactId>
       <scope>test</scope>
     </dependency>
 
