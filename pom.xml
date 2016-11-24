@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sc.csl.retail.crm</groupId>
+  <artifactId>lms-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <description>Parent POM for rwb-lms</description>
+
+  <properties>
+
+    <!-- maven settings -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- java related -->
+    <java.version>1.8</java.version>
+    <jacoco.version>0.7.5.201505241946</jacoco.version>
+
+    <!-- Spring dependencies -->
+    <spring.boot.version>1.4.1.RELEASE</spring.boot.version>
+    <spring.cloud.parent.version>Camden.SR1</spring.cloud.parent.version>
+
+    <!-- java object mapper -->
+    <modelmapper.starter.version>1.0.1</modelmapper.starter.version>
+
+    <!--jdbc drivers -->
+    <h2.version>1.4.181</h2.version>
+    <mysql.jdbc.version>5.1.37</mysql.jdbc.version>
+
+    <!-- test related dependencies -->
+    <rest.assured.version>2.4.1</rest.assured.version>
+    <flyway.version>4.0.1</flyway.version>
+
+    <!-- utilites libraries -->
+    <guava.version>19.0</guava.version>
+
+    <!-- build related -->
+    <docver.maven.plugin.version>0.4.13</docver.maven.plugin.version>
+
+  </properties>
+
+  <distributionManagement>
+    <!-- these are placeholders only -->
+    <repository>
+      <id>lib-release</id>
+      <name>internal releases</name>
+      <url>http://internal.repo/artifactory/libs-release-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>lib-snapshot</id>
+      <name>internal snapshots</name>
+      <url>http://internal.repo/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <modules>
+    <module>service-support</module>
+	<module>lms-svc</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- basics, the important stuff -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-parent</artifactId>
+        <version>${spring.cloud.parent.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Java standards -->
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>1.1.0.Final</version>
+      </dependency>
+
+
+      <!-- commons util -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <!-- CXF for web service -->
+      <!--  
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      -->
+
+      <!-- jdbc drivers -->
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>${h2.version}</version>
+      </dependency>
+      <!-- 
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.jdbc.version}</version>
+      </dependency>
+      -->
+
+      <!-- enable entity mapper support -->
+      <dependency>
+        <groupId>com.github.jmnarloch</groupId>
+        <artifactId>modelmapper-spring-boot-starter</artifactId>
+        <version>${modelmapper.starter.version}</version>
+      </dependency>
+
+      <!-- flyway db migration -->
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${flyway.version}</version>
+      </dependency>
+
+      <!--restassured for testing REST APIs -->
+      <dependency>
+        <groupId>com.jayway.restassured</groupId>
+        <artifactId>spring-mock-mvc</artifactId>
+        <version>${rest.assured.version}</version>
+      </dependency>
+
+      <!-- flyway test support -->
+      <dependency>
+        <groupId>org.flywaydb.flyway-test-extensions</groupId>
+        <artifactId>flyway-spring-test</artifactId>
+        <version>${flyway.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <defaultGoal>clean install</defaultGoal>
+    <pluginManagement>
+      <plugins>
+        <!-- always repackag instead of just package -->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring.boot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <!-- recognize the delimiter in build-info.properties -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.6</version>
+          <configuration>
+            <delimiters>
+              <delimiter>@</delimiter>
+            </delimiters>
+          </configuration>
+        </plugin>
+        <!-- test case coverage report -->
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <version>${jacoco.version}</version>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>pre-unit-test</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>post-unit-test</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>prepare-agent-it</id>
+              <phase>pre-integration-test</phase>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report-it</id>
+              <phase>post-integration-test</phase>
+              <goals>
+                <goal>report-integration</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- test settings -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.17</version>
+          <configuration>
+            <forkCount>1</forkCount>
+            <argLine>-Xmx1024m -Djava.security.egd=file:/dev/./urandom</argLine>
+            <includes>
+              <include>**/*Test*.java</include>
+              <include>**/*Test*.groovy</include>
+            </includes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-report-plugin</artifactId>
+          <version>2.17</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.12</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <forkMode>once</forkMode>
+            <parallel>none</parallel>
+            <threadCount>1</threadCount>
+            <includes>
+              <include>**/*IT.java</include>
+              <include>**/*IT.groovy</include>
+            </includes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+          </configuration>
+        </plugin>
+        <!-- get git revision and pacakge into application -->
+        <plugin>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <version>2.1.15</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <failOnNoGitDirectory>false</failOnNoGitDirectory>
+            <dateFormat>yyyy-MM-dd'T'HH:mm:ss.SSSZ</dateFormat>
+          </configuration>
+        </plugin>
+
+        <!-- add Groovy support -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <compilerId>javac-compiler</compilerId>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <compilerId>groovy-eclipse-compiler</compilerId>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.codehaus.groovy</groupId>
+              <artifactId>groovy-eclipse-compiler</artifactId>
+              <version>2.9.2-01</version>
+            </dependency>
+            <dependency>
+              <groupId>org.codehaus.groovy</groupId>
+              <artifactId>groovy-eclipse-batch</artifactId>
+              <version>2.4.3-01</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <!-- process web resources using wro -->
+        <!-- 
+        <plugin>
+          <groupId>ro.isdc.wro4j</groupId>
+          <artifactId>wro4j-maven-plugin</artifactId>
+          <version>1.7.6</version>
+          <executions>
+            <execution>
+              <phase>generate-resources</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+            <cssDestinationFolder>${project.build.directory}/generated-resources/static/css</cssDestinationFolder>
+            <jsDestinationFolder>${project.build.directory}/generated-resources/static/js</jsDestinationFolder>
+            <wroFile>${project.build.directory}/wro/wro.xml</wroFile>
+            <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
+            <contextFolder>${basedir}/src/main/wro</contextFolder>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.webjars</groupId>
+              <artifactId>jquery</artifactId>
+              <version>2.1.1</version>
+            </dependency>
+            <dependency>
+              <groupId>org.webjars</groupId>
+              <artifactId>bootstrap</artifactId>
+              <version>3.2.0</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+		-->
+		
+		<!-- eclipse plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.9</version>
+          <configuration>
+            <additionalProjectnatures>
+              <projectnature>org.eclipse.jdt.groovy.core.groovyNature</projectnature>
+            </additionalProjectnatures>
+            <classpathContainers>
+              <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+              <classpathContainer>GROOVY_DSL_SUPPORT</classpathContainer>
+            </classpathContainers>
+          </configuration>
+        </plugin>
+
+        <!-- to avoid annoying error in Eclipse -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                      <goal>testCompile</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute>
+                      <runOnIncremental>false</runOnIncremental>
+                    </execute>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <versionRange>[0.5,)</versionRange>
+                    <goals>
+                      <goal>prepare-agent</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <!-- m2e doesn't know what to do with jacoco,
+                        let's ignore it or annoying error markers appear
+                        see http://wiki.eclipse.org/M2E_plugin_execution_not_covered
+                     -->
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+		<!--  -->
+        <!-- build docker container images -->
+        <!-- 
+        <plugin>
+          <groupId>com.spotify</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>${docver.maven.plugin.version}</version>
+        </plugin>
+		-->
+        <!-- end of common plug configuration -->
+
+      </plugins>
+    </pluginManagement>
+
+  </build>
+  <!-- 
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>http://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>http://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-releases</id>
+      <name>Spring Releases</name>
+      <url>http://repo.spring.io/release</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+  -->
+
+</project>
