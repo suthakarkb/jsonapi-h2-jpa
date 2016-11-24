@@ -71,7 +71,7 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.sc.csl.retail.rwb.lms</groupId>
+        <groupId>com.sc.csl.retail.crm</groupId>
         <artifactId>lms-parent</artifactId>
         <version>${crm.version}</version>
         <type>pom</type>
