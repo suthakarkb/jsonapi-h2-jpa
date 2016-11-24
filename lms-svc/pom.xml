@@ -84,7 +84,7 @@
 
     <!--lms depedencies -->
     <dependency>
-      <groupId>com.sc.csl.retail.rwb.lms</groupId>
+      <groupId>com.sc.csl.retail.crm.svc-support</groupId>
       <artifactId>service-support</artifactId>
       <version>${crm.version}</version>
     </dependency>
@@ -224,6 +224,7 @@
           </execution>
         </executions>
       </plugin>
+	  <!--
       <plugin>
         <groupId>ro.isdc.wro4j</groupId>
         <artifactId>wro4j-maven-plugin</artifactId>
@@ -257,6 +258,7 @@
           </dependency>
         </dependencies>
       </plugin>
+	  -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
