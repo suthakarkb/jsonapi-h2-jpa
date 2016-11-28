@@ -89,10 +89,15 @@
 	
 	<!-- katharsis dependencies -->
 	<dependency>
-      <groupId>io.katharsis</groupId>
-      <artifactId>katharsis-spring</artifactId>
-      <version>${katharsis.version}</version>
-    </dependency>
+		<groupId>io.katharsis</groupId>
+	    <artifactId>katharsis-core</artifactId>
+		<version>${katharsis.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>io.katharsis</groupId>
+		<artifactId>katharsis-spring</artifactId>
+		<version>${katharsis.version}</version>
+    </dependency>	
     <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
