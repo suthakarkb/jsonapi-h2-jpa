@@ -36,6 +36,12 @@
 
     <!-- utilities libraries -->
     <guava.version>19.0</guava.version>
+	
+	<!-- katharsis version -->
+	<katharsis.version>2.4.0</katharsis.version>
+	
+	<!-- reflections version -->
+	<reflections.version>0.9.9</reflections.version>
 
   </properties>
 
@@ -184,6 +190,7 @@
           <version>2.17</version>
           <configuration>
             <forkCount>1</forkCount>
+            <argLine>-Xmx1024m -Djava.security.egd=file:/dev/./urandom</argLine>
             <includes>
               <include>**/*Test*.java</include>
               <include>**/*Test*.groovy</include>
@@ -198,7 +205,7 @@
             <failOnMissingWebXml>false</failOnMissingWebXml>
           </configuration>
         </plugin>
-        <!-- get git revision and package into application -->
+        <!-- get git revision and pacakge into application -->
         <plugin>
           <groupId>pl.project13.maven</groupId>
           <artifactId>git-commit-id-plugin</artifactId>

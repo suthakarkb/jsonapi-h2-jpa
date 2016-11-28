@@ -23,16 +23,11 @@
     <crm.common.version>1.0.0-SNAPSHOT</crm.common.version>
 	  <reflections.version>0.9.9</reflections.version>
 
-    <!--
-      JVM argument passed to surefire-plugin when running unit test
-      defined here to allow override by jacoco plugin
-     -->
-    <argLine>-Xmx1024m -Djava.security.egd=file:/dev/./urandom</argLine>
   </properties>
 
   <dependencies>
 
-    <!--common dependencies -->
+    <!--common depedencies -->
     <dependency>
       <groupId>com.sc.csl.retail.crm.common</groupId>
       <artifactId>service-support</artifactId>
@@ -85,6 +80,43 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- flyway test support -->
+    <dependency>
+      <groupId>org.flywaydb.flyway-test-extensions</groupId>
+      <artifactId>flyway-spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+	
+	<!-- katharsis dependencies -->
+	<dependency>
+      <groupId>io.katharsis</groupId>
+      <artifactId>katharsis-spring</artifactId>
+      <version>${katharsis.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>${reflections.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jayway.restassured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>2.9.0</version>
+      <scope>test</scope>
+    </dependency>     
+    <dependency>
+      <groupId>com.jayway.restassured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>2.9.0</version>
+      <scope>test</scope>
+    </dependency>    
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+      <scope>test</scope>
+    </dependency>        
+ 
   </dependencies>
 
   <build>
