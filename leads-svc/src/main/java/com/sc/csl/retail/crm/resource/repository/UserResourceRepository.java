@@ -1,5 +1,6 @@
-package com.sc.csl.retail.crm.persistence.entity.repository;
+package com.sc.csl.retail.crm.resource.repository;
 
+import com.sc.csl.retail.crm.persistence.dao.UserRepository;
 import com.sc.csl.retail.crm.persistence.entity.User;
 import io.katharsis.queryParams.QueryParams;
 import io.katharsis.repository.annotations.JsonApiDelete;
@@ -21,60 +22,41 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Iterables;
 
+//import org.springframework.cache.annotation.Cacheable;
+
 @JsonApiResourceRepository(User.class)
 @Component
-public class UserRepository {
+public class UserResourceRepository {
     private static final Map<Long, User> REPOSITORY = new ConcurrentHashMap<>();
     private static final AtomicLong ID_GENERATOR = new AtomicLong(124);
 
-    @Autowired @Lazy
-    public UserRepository() {
-        User user = new User();
-        user.setEmployeeName("Smith");
-        user.setPwId("123");
-        user.setRole("Lead");
-        save(user);
-    }
+    @Autowired
+    private UserRepository userRepository;
+    
 
     @JsonApiSave
     public <S extends User> S save(S entity) {
-//        if (entity.getId() == null) {
-//            entity.setId(ID_GENERATOR.getAndIncrement());
-//        }
-//        REPOSITORY.put(entity.getId(), entity);
-        return entity;
+        return userRepository.save(entity);
     }
 
+	//@Cacheable("userone")
     @JsonApiFindOne
     public User findOne(Long userId, QueryParams requestParams) {
         if (userId == null) {
             return null;
         }
-        User user = REPOSITORY.get(userId);
-        if (user == null) {
-            throw new ResourceNotFoundException("User not found!");
-        }
-        
-/*        if (project.getTasks().isEmpty()) {
-            Iterable<Task> tasks = taskRepository.findAll(null);
-            tasks.forEach(task -> {
-                if (task.getProjectId().equals(project.getId())) {
-                    project.getTasks().add(task);
-                }
-            });
-            save(project);
-        }
-*/        
-        return user;
+          
+        return userRepository.findOne(userId);
     }
-
+	
+	//@Cacheable("userall")
     @JsonApiFindAll
     public Iterable<User> findAll(QueryParams requestParams) {
-        return REPOSITORY.values();
+        return userRepository.findAll();
     }
 
     @JsonApiFindAllWithIds
-    public Iterable<User> findAll(Iterable<Long> userIds, QueryParams requestParams) {
+	public Iterable<User> findAll(Iterable<Long> userIds, QueryParams requestParams) {
         return REPOSITORY.entrySet()
                 .stream()
                 .filter(u -> Iterables.contains(userIds, u.getKey()))

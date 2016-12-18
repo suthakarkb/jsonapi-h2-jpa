@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c596c048-65fa-4da0-b4aa-24b78f6cbf7b" activeEnvironment="Default" name="REST Local_Users" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="dc888170-95a0-4635-a985-531e6b189b9f" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="Users" path="/api/users" id="52b6bf87-29d5-4d3b-8b02-38d944b551c8"><con:settings/><con:parameters/><con:method name="Users" id="d54bf1c8-64b0-4ad7-b1d8-b7ca64001136" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>404</con:status><con:params/><con:element xmlns:user="http://localhost/api/users">user:Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/vnd.api+json;charset=UTF-8</con:mediaType><con:status>200 201</con:status><con:params/><con:element xmlns:user="http://localhost/api/users">user:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=UTF-8</con:mediaType><con:status>500 404</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="AddUser" id="f791678c-d25c-4f21-94c9-f37ae7a7ffe5" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="accept" value="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+  "data": {
+    "type": "users",
+    "id": "5",
+    "attributes": {
+      "employeeName": "LMS USER5",
+      "new": true,
+      "role": "Lead",
+      "pwId": "10005"
+    },
+    "relationships": {},
+    "links": {
+      "self": "http://localhost:8080/api/users/5"
+    }
+  },
+  "included": []
+}</con:request><con:originalUri>http://localhost/api/users</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="GetAllUsers" id="f791678c-d25c-4f21-94c9-f37ae7a7ffe5" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="accept" value="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+  "data": {
+    "type": "users",
+    "id": "3",
+    "attributes": {
+      "employeeName": "UI USER",
+      "role": "admin",
+      "pwId": "10004"
+    },
+    "relationships": {},
+    "links": {
+      "self": "http://localhost:8080/api/users/3"
+    }
+  },
+  "included": []
+}</con:request><con:originalUri>http://localhost/api/users</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="UpdateUser" id="f791678c-d25c-4f21-94c9-f37ae7a7ffe5" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="accept" value="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+  "data": {
+    "type": "users",
+    "id": "2",
+    "attributes": {
+      "employeeName": "LMS USER",
+      "new": false,
+      "role": "Lead8",
+      "pwId": "10008"
+    },
+    "relationships": {},
+    "links": {
+      "self": "http://localhost:8080/api/users/2"
+    }
+  },
+  "included": []
+}</con:request><con:originalUri>http://localhost/api/users</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

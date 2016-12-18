@@ -1,1 +1,3 @@
--- empty
+--create table USERS (employee_name varchar2(64) not null, pw_id varchar2(6) not null, role varchar2(32) not null);
+--Insert into USERS values ('JPA USER', '10002', 'Lead'); 
+--Insert into USERS values ('LMS USER', '10003', 'Lead');

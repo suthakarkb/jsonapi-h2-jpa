@@ -1,22 +1,17 @@
-package com.sc.csl.retail.crm.persistence.entity;
+package com.sc.csl.retail.crm.resource;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import io.katharsis.resource.annotations.JsonApiId;
-import io.katharsis.resource.annotations.JsonApiResource;
+//import io.katharsis.resource.annotations.JsonApiId;
+//import io.katharsis.resource.annotations.JsonApiResource;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "users")
-@Table(name = "users")
-@JsonApiResource(type = "users")
-public class User extends AbstractPersistable<Long> {
+@Entity
+public class UserResource {
 
 	@Id
-	@JsonApiId
 	private Long id;
 	
     public Long getId() {
@@ -59,15 +54,6 @@ public class User extends AbstractPersistable<Long> {
     public void setRole(String role) {
         this.role = role;
     }
-	
-//	@Override
-//	public boolean isNew(){
-//		return super.isNew();
-//	}	
-	
-	public void setNew(boolean isNew){
-		//super.isNew = isNew;
-	}	
 
     @Override
     public boolean equals(Object o) {
@@ -75,7 +61,7 @@ public class User extends AbstractPersistable<Long> {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        User user = (User) o;
+        UserResource user = (UserResource) o;
 
         if (!employeeName.equals(user.employeeName)) return false;
         if (!pwId.equals(user.pwId)) return false;
