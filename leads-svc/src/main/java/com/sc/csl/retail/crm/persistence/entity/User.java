@@ -66,7 +66,6 @@ public class User extends AbstractPersistable<Long> {
 //	}	
 	
 	public void setNew(boolean isNew){
-		//super.isNew = isNew;
 	}	
 
     @Override
